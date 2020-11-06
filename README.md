@@ -1,5 +1,5 @@
 # Aurebesh-Discord-JS-Bot
- A Javascript rewrite of the Aurebesh discord bot, originally written in Java.
+ A Javascript rewrite of my [Aurebesh discord bot](https://github.com/Raymond-exe/Aurebesh-DiscordBot), originally written in Java.
 
 Click [here](https://github.com/Raymond-exe/Aurebesh-DiscordBot) to see the original bot made using [DV8FromTheWorld](https://github.com/DV8FromTheWorld)'s [Java-Discord API "JDA"](https://github.com/DV8FromTheWorld/JDA).
 
