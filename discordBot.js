@@ -6,11 +6,25 @@ var CMD_PREFIX = '~'
 var BOT_PREFIX = '||ab'
 
 // On ready
-client.on('ready', () => {
-    console.log('Logged in as @' + client.user.tag)
-})
+client.on('ready', onBotReady)
 
-client.on('message', (messageEvent) => {
+// On message received
+client.on('message', onMessageReceived, messageEvent)
+
+// Bot login
+client.login(process.env.DISCORD_JS_BOT_TOKEN)
+
+
+
+/********** FUNCTIONS **********/
+
+
+
+function onBotReady() {
+
+}
+
+function onMessageReceived(messageEvent) {
     message = messageEvent.content
 
     //if the message wasn't sent by a bot and it started with the right prefix
@@ -33,7 +47,7 @@ client.on('message', (messageEvent) => {
                     response = '**This is a temporary menu. Remind me to fix it lol.**\nCommands: `~help`, `~key`'; //TODO make the help command
                     break;
                 case 'version':
-                    response = 'version 201108.0.6' //TODO find a better way to do this lol
+                    response = 'version 201108.0.7' //TODO find a better way to do this lol
                     break;
                 default:
                     response = 'Command not \"' + CMD_PREFIX + command + '\"recognized. Use ' + CMD_PREFIX + 'help to see all commands!';
@@ -53,9 +67,14 @@ client.on('message', (messageEvent) => {
             }
     
             var textToTranslate = message.substring(4, message.length-2).trim() + ' -@' + messageEvent.author.username
-            var translationLink = {files: [getTranslationLink(textToTranslate)]}
-            var file = translationLink.files[0] + '.png'
-            messageEvent.channel.send(file)
+            fetch(getTranslationLink(textToTranslate))
+                .then(res => res.blob())
+                .then(blob => {
+                    var objUrl = URL.createObjectURL(blob)
+                    var image = new Image()
+                    image.src = objUrl
+                })
+            messageEvent.channel.send({files: [image]})
             
             messageEvent.delete() //delete the message
 
@@ -63,21 +82,15 @@ client.on('message', (messageEvent) => {
         }
     }
 
-})
-
-
-client.login(process.env.DISCORD_JS_BOT_TOKEN)
-
-
-
-/********** FUNCTIONS **********/
-
-
+}
 
 function getTranslationLink(str) {
-    var output = "https://everythingfonts.com/testdrive/hKenvRq3__Z8DBqPgUDqjgeF?text=";
+    var output = "https://everythingfonts.com/testdrive/hKenvRq3__Z8DBqPgUDqjgeF?filetype=png&text=";
 
 
+    // Loop through the provided string
+    // If it's alphanumeric, add it to the given link
+    // If it's not, add '%' + the hex code instead
     var i, c
     for(i = 0; i < str.length; i++) {
         c = str.charAt(i)
@@ -93,5 +106,6 @@ function getTranslationLink(str) {
         }
     }
 
+    //return the link
     return output
 }
