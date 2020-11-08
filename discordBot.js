@@ -40,17 +40,15 @@ function onMessageReceived(messageEvent) {
             switch(command) {
                 case 'key':
                     response = {files: ["https://ootinicast.com/aurebesh/Aurebesh.png"]};
-                    //alt link:
-                    //'https://4.bp.blogspot.com/_eHPoZlMooF4/SLzo0MdZXZI/AAAAAAAAAEc/eWHKMH4GY3w/w1200-h630-p-k-no-nu/The+Aurebesh.bmp';
                     break;
                 case 'help':
                     response = '**This is a temporary menu. Remind me to fix it lol.**\nCommands: `~help`, `~key`'; //TODO make the help command
                     break;
                 case 'version':
-                    response = 'version 201108.0.9' //TODO find a better way to do this lol
+                    response = 'version 201108.0.10' //TODO find a better way to do this lol
                     break;
                 default:
-                    response = 'Command not \"' + CMD_PREFIX + command + '\"recognized. Use ' + CMD_PREFIX + 'help to see all commands!';
+                    response = 'Command \"' + CMD_PREFIX + command + '\" not recognized. Use ' + CMD_PREFIX + 'help to see all commands!';
             }
 
             messageEvent.channel.send(response);
@@ -58,7 +56,7 @@ function onMessageReceived(messageEvent) {
             return
         }
 
-        //if the message starts with the translation prefix
+        //if the message starts with the translation prefix and is spoiler tagged
         if (message.indexOf(BOT_PREFIX)==0 && message.lastIndexOf('||')==message.length-2) {
             //if you can't delete the message, ask for perms
             if(!messageEvent.deletable) {
@@ -66,16 +64,16 @@ function onMessageReceived(messageEvent) {
                 return
             }
     
-            var textToTranslate = message.substring(4, message.length-2).trim() + ' -@' + messageEvent.author.username
+            var textToTranslate = message.substring(BOT_PREFIX.length, message.length-2).trim() + ' -@' + messageEvent.author.username
+            /*
             fetch(getTranslationLink(textToTranslate))
                 .then(res => res.blob())
                 .then(blob => {
                     var objUrl = URL.createObjectURL(blob)
                     var image = new Image()
                     image.src = objUrl
-                })
-            messageEvent.channel.send({files: [image]})
-            
+                }) //*/
+            messageEvent.channel.send(textToTranslate)
             messageEvent.delete() //delete the message
 
             return
