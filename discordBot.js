@@ -20,9 +20,8 @@ client.on('message', (messageEvent) => {
         if (message.indexOf(CMD_PREFIX)==0) {
 
             var command = message.substring(1)
-            messageEvent.channel.send('1: ' + command)
+            messageEvent.channel.send(command.indexOf(' '))
             command = command.trim().substring(0, command.indexOf(' '))
-            messageEvent.channel.send('2: ' + command)
             var response = "";
 
 
@@ -37,7 +36,7 @@ client.on('message', (messageEvent) => {
                     response = 'version 201108.0.0'
                     break;
                 default:
-                    response = 'Command not recognized. Use ' + CMD_PREFIX + 'help to see all commands!';
+                    response = 'Command not \"' + CMD_PREFIX + command + '\"recognized. Use ' + CMD_PREFIX + 'help to see all commands!';
             }
 
             messageEvent.channel.send(response);
