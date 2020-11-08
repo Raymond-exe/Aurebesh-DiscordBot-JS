@@ -23,6 +23,10 @@ client.on('message', (messageEvent) => {
             command = command.trim().substring(0, command.indexOf(' '))
             var response;
 
+
+            messageEvent.channel.send("Commands should be working?")
+
+
             switch(command) {
                 case 'key':
                     response = 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.explicit.bing.net%2Fth%3Fid%3DOIP.Y1Xg_WAVI6L2KZr4PrLqcgHaGE%26pid%3DApi&f=1';
@@ -31,7 +35,7 @@ client.on('message', (messageEvent) => {
                     response = 'help cmd WIP lol'; //TODO make the help command
                     break;
                 case 'version':
-                    response = 'version 201107.23'
+                    response = 'version 201107.23.1'
                     break;
                 default:
                     response = 'Command not recognized. Use ' + CMD_PREFIX + 'help to see all commands!';
