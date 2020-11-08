@@ -2,6 +2,7 @@ require('dotenv').config();
 const { Client } = require('discord.js')//.config();
 const client = new Client()
 
+var CMD_PREFIX = '~'
 var BOT_PREFIX = '||ab'
 
 // On ready
@@ -13,19 +14,47 @@ client.on('message', (messageEvent) => {
     message = messageEvent.content
 
     //if the message wasn't sent by a bot and it started with the right prefix
-    if(!messageEvent.author.bot && message.indexOf(BOT_PREFIX)==0 && message.lastIndexOf('||')==message.length-2) {
+    if(!messageEvent.author.bot) {
 
-        //if you can't delete the message, ask for perms
-        if(!messageEvent.deletable) {
-            messageEvent.channel.send('Oops! I need permission to delete messages in this channel in order to work properly. Thank you!')
+
+        //if the message starts with the bot prefix
+        if (message.indexOf(CMD_PREFIX)==0) {
+            var command = message.substring(1)
+            command = command.trim().substring(0, command.indexOf(' '))
+            var response;
+
+            switch(command) {
+                case 'key':
+                    response = 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.explicit.bing.net%2Fth%3Fid%3DOIP.Y1Xg_WAVI6L2KZr4PrLqcgHaGE%26pid%3DApi&f=1';
+                    break;
+                case 'help':
+                    response = 'help cmd WIP lol'; //TODO make the help command
+                    break;
+                default:
+
+            }
+
+            messageEvent.channel.send(response);
+
             return
         }
 
-        messageEvent.delete() //delete the message
+        //if the message starts with the translation prefix
+        if (message.indexOf(BOT_PREFIX)==0 && message.lastIndexOf('||')==message.length-2) {
+            //if you can't delete the message, ask for perms
+            if(!messageEvent.deletable) {
+                messageEvent.channel.send('Oops! I need permission to delete messages in this channel in order to work properly. Thank you!')
+                return
+            }
+    
+            messageEvent.delete() //delete the message
+    
+            var textToTranslate = message.substring(4, message.length-2).trim() + ' -@' + messageEvent.author.username
+            var translationLink = getTranslationLink(textToTranslate)
+            messageEvent.channel.send(translationLink)
 
-        var textToTranslate = message.substring(4, message.length-2).trim() + ' -@' + messageEvent.author.username
-        var translationLink = getTranslationLink(textToTranslate)
-        messageEvent.channel.send(translationLink)
+            return
+        }
     }
 
 })
