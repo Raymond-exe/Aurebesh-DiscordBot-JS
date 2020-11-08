@@ -33,7 +33,7 @@ client.on('message', (messageEvent) => {
                     response = '**This is a temporary menu. Remind me to fix it lol.**\nCommands: `~help`, `~key`'; //TODO make the help command
                     break;
                 case 'version':
-                    response = 'version 201108.0.4'
+                    response = 'version 201108.0.5'
                     break;
                 default:
                     response = 'Command not \"' + CMD_PREFIX + command + '\"recognized. Use ' + CMD_PREFIX + 'help to see all commands!';
@@ -54,7 +54,7 @@ client.on('message', (messageEvent) => {
     
             var textToTranslate = message.substring(4, message.length-2).trim() + ' -@' + messageEvent.author.username
             var translationLink = getTranslationLink(textToTranslate)
-            messageEvent.channel.send({files: translationLink})
+            messageEvent.channel.send({files: [translationLink]})
             
             messageEvent.delete() //delete the message
 
