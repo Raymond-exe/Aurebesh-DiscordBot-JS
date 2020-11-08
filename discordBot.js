@@ -19,21 +19,19 @@ client.on('message', (messageEvent) => {
         //if the message starts with the bot prefix
         if (message.indexOf(CMD_PREFIX)==0) {
 
-            var command = message.substring(1)
-            messageEvent.channel.send(command.indexOf(' ')>0 ? command.indexOf(' ') : command.length)
-            command = command.trim().substring(0, command.indexOf(' ')>0 ? command.indexOf(' ') : command.length)
+            var command = message.substring(1).trim()
+            command = command.substring(0, command.indexOf(' ')>0 ? command.indexOf(' ') : command.length)
             var response = "";
-
 
             switch(command) {
                 case 'key':
                     response = 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.explicit.bing.net%2Fth%3Fid%3DOIP.Y1Xg_WAVI6L2KZr4PrLqcgHaGE%26pid%3DApi&f=1';
                     break;
                 case 'help':
-                    response = 'help cmd WIP lol'; //TODO make the help command
+                    response = '**This is a temporary menu. Remind me to fix it lol.**\nCommands: `~help`, `~key`'; //TODO make the help command
                     break;
                 case 'version':
-                    response = 'version 201108.0.0'
+                    response = 'version 201108.0.1'
                     break;
                 default:
                     response = 'Command not \"' + CMD_PREFIX + command + '\"recognized. Use ' + CMD_PREFIX + 'help to see all commands!';
