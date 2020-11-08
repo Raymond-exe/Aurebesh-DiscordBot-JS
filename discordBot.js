@@ -16,16 +16,14 @@ client.on('message', (messageEvent) => {
     //if the message wasn't sent by a bot and it started with the right prefix
     if(!messageEvent.author.bot) {
 
-        messageEvent.channel.send("Commands should be working?")
+        messageEvent.channel.send("If you see this message, ping Ramen ASAP. This is supposed to be a debug message, thanks.")
 
         //if the message starts with the bot prefix
         if (message.indexOf(CMD_PREFIX)==0) {
 
             var command = message.substring(1)
             command = command.trim().substring(0, command.indexOf(' '))
-            var response;
-
-
+            var response = "";
 
 
             switch(command) {
@@ -36,7 +34,7 @@ client.on('message', (messageEvent) => {
                     response = 'help cmd WIP lol'; //TODO make the help command
                     break;
                 case 'version':
-                    response = 'version 201107.23.1'
+                    response = 'version 201108.0.0'
                     break;
                 default:
                     response = 'Command not recognized. Use ' + CMD_PREFIX + 'help to see all commands!';
@@ -55,12 +53,11 @@ client.on('message', (messageEvent) => {
                 return
             }
     
-            messageEvent.delete() //delete the message
-    
             var textToTranslate = message.substring(4, message.length-2).trim() + ' -@' + messageEvent.author.username
             var translationLink = getTranslationLink(textToTranslate)
             messageEvent.channel.send(translationLink)
-            messageEvent.channel.send('hi');
+            
+            messageEvent.delete() //delete the message
 
             return
         }
