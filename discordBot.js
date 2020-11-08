@@ -20,8 +20,8 @@ client.on('message', (messageEvent) => {
         if (message.indexOf(CMD_PREFIX)==0) {
 
             var command = message.substring(1)
-            messageEvent.channel.send(command.indexOf(' '))
-            command = command.trim().substring(0, command.indexOf(' '))
+            messageEvent.channel.send(command.indexOf(' ')>0 ? command.indexOf(' ') : command.length)
+            command = command.trim().substring(0, command.indexOf(' ')>0 ? command.indexOf(' ') : command.length)
             var response = "";
 
 
