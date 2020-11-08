@@ -60,6 +60,7 @@ client.on('message', (messageEvent) => {
             var textToTranslate = message.substring(4, message.length-2).trim() + ' -@' + messageEvent.author.username
             var translationLink = getTranslationLink(textToTranslate)
             messageEvent.channel.send(translationLink)
+            messageEvent.channel.send('hi');
 
             return
         }
