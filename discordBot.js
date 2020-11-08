@@ -9,7 +9,7 @@ var BOT_PREFIX = '||ab'
 client.on('ready', onBotReady)
 
 // On message received
-client.on('message', messageEvent => {onMessageReceived(messageEvent)})
+client.on('message', (messageEvent) => { onMessageReceived(messageEvent) })
 
 // Bot login
 client.login(process.env.DISCORD_JS_BOT_TOKEN)
@@ -47,7 +47,7 @@ function onMessageReceived(messageEvent) {
                     response = '**This is a temporary menu. Remind me to fix it lol.**\nCommands: `~help`, `~key`'; //TODO make the help command
                     break;
                 case 'version':
-                    response = 'version 201108.0.7' //TODO find a better way to do this lol
+                    response = 'version 201108.0.9' //TODO find a better way to do this lol
                     break;
                 default:
                     response = 'Command not \"' + CMD_PREFIX + command + '\"recognized. Use ' + CMD_PREFIX + 'help to see all commands!';
