@@ -16,10 +16,10 @@ client.on('message', (messageEvent) => {
     //if the message wasn't sent by a bot and it started with the right prefix
     if(!messageEvent.author.bot) {
 
+        messageEvent.channel.send("Commands should be working?")
+
         //if the message starts with the bot prefix
         if (message.indexOf(CMD_PREFIX)==0) {
-
-            messageEvent.channel.send("Commands should be working?")
 
             var command = message.substring(1)
             command = command.trim().substring(0, command.indexOf(' '))
