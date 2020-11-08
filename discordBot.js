@@ -25,7 +25,7 @@ client.on('message', (messageEvent) => {
 
             switch(command) {
                 case 'key':
-                    response = 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.explicit.bing.net%2Fth%3Fid%3DOIP.Y1Xg_WAVI6L2KZr4PrLqcgHaGE%26pid%3DApi&f=1';
+                    response = {files: ["https://4.bp.blogspot.com/_eHPoZlMooF4/SLzo0MdZXZI/AAAAAAAAAEc/eWHKMH4GY3w/w1200-h630-p-k-no-nu/The+Aurebesh.bmp"]};//'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.explicit.bing.net%2Fth%3Fid%3DOIP.Y1Xg_WAVI6L2KZr4PrLqcgHaGE%26pid%3DApi&f=1';
                     break;
                 case 'help':
                     response = '**This is a temporary menu. Remind me to fix it lol.**\nCommands: `~help`, `~key`'; //TODO make the help command
@@ -36,7 +36,7 @@ client.on('message', (messageEvent) => {
                 default:
                     response = 'Command not \"' + CMD_PREFIX + command + '\"recognized. Use ' + CMD_PREFIX + 'help to see all commands!';
             }
-
+            
             messageEvent.channel.send(response);
 
             return
