@@ -19,7 +19,7 @@ client.on('message', (messageEvent) => {
         //if the message starts with the bot prefix
         if (message.indexOf(CMD_PREFIX)==0) {
 
-            var command = message.substring(1, command.length)
+            var command = message.substring(1)
             messageEvent.channel.send('1: ' + command)
             command = command.trim().substring(0, command.indexOf(' '))
             messageEvent.channel.send('2: ' + command)
