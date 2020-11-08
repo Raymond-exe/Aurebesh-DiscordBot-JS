@@ -31,7 +31,7 @@ client.on('message', (messageEvent) => {
                     response = 'help cmd WIP lol'; //TODO make the help command
                     break;
                 default:
-
+                    response = 'Command not recognized. Use ' + CMD_PREFIX + 'help to see all commands!';
             }
 
             messageEvent.channel.send(response);
