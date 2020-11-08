@@ -16,13 +16,13 @@ client.on('message', (messageEvent) => {
     //if the message wasn't sent by a bot and it started with the right prefix
     if(!messageEvent.author.bot) {
 
-        messageEvent.channel.send("If you see this message, ping Ramen ASAP. This is supposed to be a debug message, thanks.")
-
         //if the message starts with the bot prefix
         if (message.indexOf(CMD_PREFIX)==0) {
 
-            var command = message.substring(1)
+            var command = message.substring(1, command, command.length)
+            messageEvent.channel.send('1: ' + command)
             command = command.trim().substring(0, command.indexOf(' '))
+            messageEvent.channel.send('2: ' + command)
             var response = "";
 
 
@@ -43,9 +43,8 @@ client.on('message', (messageEvent) => {
             messageEvent.channel.send(response);
 
             return
-        }
-
-        //if the message starts with the translation prefix
+        } else // don't worry, this else links to the next if
+        // if the message starts with the translation prefix
         if (message.indexOf(BOT_PREFIX)==0 && message.lastIndexOf('||')==message.length-2) {
             //if you can't delete the message, ask for perms
             if(!messageEvent.deletable) {
