@@ -9,7 +9,7 @@ var BOT_PREFIX = '||ab'
 client.on('ready', onBotReady)
 
 // On message received
-client.on('message', onMessageReceived, messageEvent)
+client.on('message', messageEvent => {onMessageReceived(messageEvent)})
 
 // Bot login
 client.login(process.env.DISCORD_JS_BOT_TOKEN)
@@ -21,7 +21,7 @@ client.login(process.env.DISCORD_JS_BOT_TOKEN)
 
 
 function onBotReady() {
-
+    // DM me the version that booted up I guess?
 }
 
 function onMessageReceived(messageEvent) {
