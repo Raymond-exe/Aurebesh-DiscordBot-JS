@@ -30,6 +30,9 @@ client.on('message', (messageEvent) => {
                 case 'help':
                     response = 'help cmd WIP lol'; //TODO make the help command
                     break;
+                case 'version':
+                    response = 'version 201107.23'
+                    break;
                 default:
                     response = 'Command not recognized. Use ' + CMD_PREFIX + 'help to see all commands!';
             }
