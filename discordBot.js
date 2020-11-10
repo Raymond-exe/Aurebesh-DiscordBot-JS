@@ -49,7 +49,7 @@ function onMessageReceived(messageEvent) {
                     quoteCmd(messageEvent.channel)
                     break;
                 case 'version':
-                    response = 'version 201108.0.10' //TODO find a better way to do this lol
+                    response = 'version ID 201109.0 TEST' //TODO find a better way to do this lol
                     break;
                 default:
                     response = 'Command \"' + CMD_PREFIX + command + '\" not recognized. Use ' + CMD_PREFIX + 'help to see all commands!';
@@ -90,11 +90,15 @@ function helpCmd(channel) {
 }
 
 function quoteCmd(channel) {
+    var quotes = require("./quotes.json");
+    /*
     var quotes = JSON.parse(localStorage.getItem('quotes.json')).quotes
     var selectedIndex = Math.random()*quotes.length
     var selectedQuote = quotes[selectedIndex]
 
     channel.send("\"" + selectedQuote.text + "\" " + (selectedQuote.author=="" ? "" : "-"+selectedQuote.author))
+    //*/
+    channel.send(quotes.quotes);
 }
 
 function getTranslationLink(str) {
