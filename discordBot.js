@@ -69,15 +69,8 @@ function onMessageReceived(messageEvent) {
             }
     
             var textToTranslate = message.substring(BOT_PREFIX.length, message.length-2).trim() + ' -@' + messageEvent.author.username
-            /*
-            fetch(getTranslationLink(textToTranslate))
-                .then(res => res.blob())
-                .then(blob => {
-                    var objUrl = URL.createObjectURL(blob)
-                    var image = new Image()
-                    image.src = objUrl
-                }) //*/
-            messageEvent.channel.send(getTranslationLink(textToTranslate))
+
+            messageEvent.channel.send({files: [getTranslationLink(textToTranslate)]})
             messageEvent.delete() //delete the message
 
             return
