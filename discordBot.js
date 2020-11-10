@@ -69,8 +69,8 @@ function onMessageReceived(messageEvent) {
             }
     
             var textToTranslate = message.substring(BOT_PREFIX.length, message.length-2).trim() + ' -@' + messageEvent.author.username
-
-            messageEvent.channel.send({files: [getTranslationLink(textToTranslate)]})
+            
+            messageEvent.channel.send(getTranslationLink(textToTranslate))
             messageEvent.delete() //delete the message
 
             return
@@ -106,17 +106,8 @@ function getTranslationLink(str) {
     // If it's not, add '%' + the hex code instead
     var i, c
     for(i = 0; i < str.length; i++) {
-        c = str.charAt(i)
-
-        if (    (c >= 'a' && c <= 'z') ||
-			    (c >= 'A' && c <= 'Z') ||
-                (c >= '0' && c <= '9')
-            ) {
-            output = output + c
-		} else {
-            c = str.charCodeAt(i)
-            output = output + '%' + c.toString(16)
-        }
+        c = str.charCodeAt(i)
+        output = output + '%' + c.toString(16)
     }
 
     //return the link
