@@ -49,7 +49,7 @@ function onMessageReceived(messageEvent) {
                     quoteCmd(messageEvent.channel)
                     break;
                 case 'version':
-                    response = 'version ID 201109.3 TEST' //TODO find a better way to do this lol
+                    response = 'version ID 201109.4 TEST' //TODO find a better way to do this lol
                     break;
                 default:
                     response = 'Command \"' + CMD_PREFIX + command + '\" not recognized. Use ' + CMD_PREFIX + 'help to see all commands!';
@@ -91,7 +91,7 @@ function helpCmd(channel) {
 
 function quoteCmd(channel) {
     var quotes = require("./quotes.json").quotes;
-    var selectedIndex = Math.random()*quotes.length
+    var selectedIndex = Math.round(Math.random()*quotes.length)
     channel.send("Index: " + selectedIndex)
     var selectedQuote = quotes[selectedIndex]
 
