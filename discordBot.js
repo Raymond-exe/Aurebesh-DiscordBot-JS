@@ -16,7 +16,7 @@ client.login(process.env.DISCORD_JS_BOT_TOKEN)
 
 
 
-/********** FUNCTIONS **********/
+/********** EVENT FUNCTIONS **********/
 
 
 
@@ -42,7 +42,11 @@ function onMessageReceived(messageEvent) {
                     response = {files: ["https://ootinicast.com/aurebesh/Aurebesh.png"]};
                     break;
                 case 'help':
-                    response = '**This is a temporary menu. Remind me to fix it lol.**\nCommands: `~help`, `~key`'; //TODO make the help command
+                    helpCmd(messageEvent.channel) //TODO work on help cmd
+                    response = '**This is a temporary menu. Remind me to fix it lol.**\nCommands: `~help`, `~key`';
+                    break;
+                case 'quote':
+                    quoteCmd(messageEvent.channel)
                     break;
                 case 'version':
                     response = 'version 201108.0.10' //TODO find a better way to do this lol
@@ -73,13 +77,31 @@ function onMessageReceived(messageEvent) {
                     var image = new Image()
                     image.src = objUrl
                 }) //*/
-            messageEvent.channel.send(textToTranslate)
+            messageEvent.channel.send(getTranslationLink(textToTranslate))
             messageEvent.delete() //delete the message
 
             return
         }
     }
 
+}
+
+
+
+/********** COMMAND FUNCTIONS  **********/
+
+
+
+function helpCmd(channel) {
+    //help should include a how-to-use and list of commands
+}
+
+function quoteCmd(channel) {
+    var quotes = JSON.parse(localStorage.getItem('quotes.json')).quotes
+    var selectedIndex = Math.random()*quotes.length
+    var selectedQuote = quotes[selectedIndex]
+
+    channel.send("\"" + selectedQuote.text + "\" " + (selectedQuote.author=="" ? "" : "-"+selectedQuote.author))
 }
 
 function getTranslationLink(str) {
