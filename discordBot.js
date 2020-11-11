@@ -44,7 +44,7 @@ function onMessageReceived(messageEvent) {
                         response = {files: ["https://ootinicast.com/aurebesh/Aurebesh.png"]};
                         break;
                     case 'help':
-                        response = helpCmd(messageEvent.channel) //TODO remove parameter when done
+                        response = helpCmd() //TODO remove parameter when done
                         break;
                     case 'quote':
                         response = quoteCmd()
