@@ -95,10 +95,13 @@ function helpCmd(channel) {
 
     if(channel != undefined) { channel.send("retrieved helpCommand.json!"); } //debug
 
+    /*
     const embed = new Client().MessageEmbed()
         .setTitle(helpJson.Title)
-        .setDescription(helpJson.Description)
-        .setThumbnail(client.user.avatarURL)
+        //.setDescription(helpJson.Description)
+        //.setThumbnail(client.user.avatarURL) //*/
+    var embed = "**" + helpJson.Title + "**\n"  //TODO remove for embed
+    embed += "*" + helpJson.Description + "*\n" //TODO remove for embed
 
     if(channel != undefined) { channel.send("embed built!"); } //debug
     
@@ -106,9 +109,12 @@ function helpCmd(channel) {
     
     if(channel != undefined) { channel.send("Keys retrieved!"); } //debug
 
+    embed += "```" //TODO remove for embed
     commands.forEach(cmd => {
-        embed.addField(cmd, helpJson.Commands[cmd], false)
+        embed += BOT_PREFIX + cmd + " - " + helpJson.Commands[cmd] + "\n"; //TODO change for embed
+        //embed.addField(cmd, helpJson.Commands[cmd], false)
     });
+    embed += "```" //TODO remove for embed
     
     if(channel != undefined) { channel.send("Commands added!"); } //debug
 
