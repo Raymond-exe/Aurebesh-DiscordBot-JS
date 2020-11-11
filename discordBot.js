@@ -50,7 +50,7 @@ function onMessageReceived(messageEvent) {
                         response = quoteCmd()
                         break;
                     case 'version':
-                        response = 'version 201110.5' //TODO find a better way to do this lol
+                        response = 'version 201110.6' //TODO find a better way to do this lol
                         break;
                     default:
                         response = 'Command \"' + CMD_PREFIX + command + '\" not recognized. Use ' + CMD_PREFIX + 'help to see all commands!';
@@ -111,7 +111,7 @@ function helpCmd(channel) {
 
     embed += "```" //TODO remove for embed
     commands.forEach(cmd => {
-        embed += BOT_PREFIX + cmd + " - " + helpJson.Commands[cmd] + "\n"; //TODO change for embed
+        embed += CMD_PREFIX + cmd + " - " + helpJson.Commands[cmd] + "\n"; //TODO change for embed
         //embed.addField(cmd, helpJson.Commands[cmd], false)
     });
     embed += "```" //TODO remove for embed
