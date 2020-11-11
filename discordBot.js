@@ -42,14 +42,13 @@ function onMessageReceived(messageEvent) {
                     response = {files: ["https://ootinicast.com/aurebesh/Aurebesh.png"]};
                     break;
                 case 'help':
-                    helpCmd(messageEvent.channel) //TODO work on help cmd
-                    response = '**This is a temporary menu. Remind me to fix it lol.**\nCommands: `~help`, `~key`';
+                    response = helpCmd()
                     break;
                 case 'quote':
-                    quoteCmd(messageEvent.channel)
+                    response = quoteCmd()
                     break;
                 case 'version':
-                    response = 'version 201109.6' //TODO find a better way to do this lol
+                    response = 'version 201110.0' //TODO find a better way to do this lol
                     break;
                 default:
                     response = 'Command \"' + CMD_PREFIX + command + '\" not recognized. Use ' + CMD_PREFIX + 'help to see all commands!';
@@ -85,7 +84,7 @@ function onMessageReceived(messageEvent) {
 
 
 
-function helpCmd(channel) {
+function helpCmd() {
     var helpJson = require("./helpCommand.json");
 
     const embed = new Client().MessageEmbed()
@@ -99,14 +98,14 @@ function helpCmd(channel) {
         embed.addField(cmd, helpJson.Commands[cmd], false)
     });
 
-    channel.send(embed);
+    return embed;
 }
 
 function quoteCmd(channel) {
     var quotes = require("./quotes.json").quotes;
     var selectedIndex = Math.round(Math.random()*quotes.length)
     var selectedQuote = quotes[selectedIndex]
-    channel.send("*\"" + selectedQuote.text + "\"* " + (selectedQuote.author=="" ? "" : "**-"+selectedQuote.author + "**"))
+    return "*\"" + selectedQuote.text + "\"* " + (selectedQuote.author=="" ? "" : "**-"+selectedQuote.author + "**");
 }
 
 function getTranslationLink(str) {
