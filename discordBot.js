@@ -84,19 +84,27 @@ function onMessageReceived(messageEvent) {
 
 
 
-function helpCmd() {
+function helpCmd(channel) {
     var helpJson = require("./helpCommand.json");
+
+    if(channel != undefined) { channel.send("retrieved helpCommand.json!"); } //debug
 
     const embed = new Client().MessageEmbed()
         .setTitle(helpJson.Title)
         .setDescription(helpJson.Description)
         .setThumbnail(client.user.avatarURL)
 
+    if(channel != undefined) { channel.send("embed built!"); } //debug
+    
     var commands = Object.keys(helpJson.Commands)
+    
+    if(channel != undefined) { channel.send("Keys retrieved!"); } //debug
 
     commands.forEach(cmd => {
         embed.addField(cmd, helpJson.Commands[cmd], false)
     });
+    
+    if(channel != undefined) { channel.send("Commands added!"); } //debug
 
     return embed;
 }
