@@ -86,7 +86,20 @@ function onMessageReceived(messageEvent) {
 
 
 function helpCmd(channel) {
-    //help should include a how-to-use and list of commands
+    var helpJson = require("./helpCommand.json");
+
+    const embed = new Client().MessageEmbed()
+        .setTitle(helpJson.Title)
+        .setDescription(helpJson.Description)
+        .setThumbnail(client.user.avatarURL)
+
+    var commands = Object.keys(helpJson.Commands)
+
+    commands.forEach(cmd => {
+        embed.addField(cmd, helpJson.Commands[cmd], false)
+    });
+
+    channel.send(embed);
 }
 
 function quoteCmd(channel) {

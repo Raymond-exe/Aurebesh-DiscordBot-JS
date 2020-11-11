@@ -1,0 +1,10 @@
+{
+    "Title": "Help with Aurebesh",
+    "Description": "Aurebesh is a fictional language from Star Wars. To translate to it, type `||ab (phrase)||`.",
+    "Commands": {
+        "help": "Summons this help message.",
+        "key": "Sends an Aurebesh key for manual translation",
+        "quote": "Sends a random Star Wars quote",
+        "untranslate": "Untranslates an Aurebesh phrase. **WARNING:** Doesn't currently work lol."
+    }
+}
