@@ -48,7 +48,7 @@ function onMessageReceived(messageEvent) {
                     response = quoteCmd()
                     break;
                 case 'version':
-                    response = 'version 201110.0' //TODO find a better way to do this lol
+                    response = 'version 201110.1' //TODO find a better way to do this lol
                     break;
                 default:
                     response = 'Command \"' + CMD_PREFIX + command + '\" not recognized. Use ' + CMD_PREFIX + 'help to see all commands!';
