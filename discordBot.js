@@ -4,12 +4,17 @@ const client = new Client()
 
 var CMD_PREFIX = '~'
 var BOT_PREFIX = '||ab'
+var ERROR_LOG_CHANNEL_ID = '775936990419222539'
 
 // On ready
 client.on('ready', onBotReady)
 
-// On message received
-client.on('message', (messageEvent) => { onMessageReceived(messageEvent) })
+try {
+    // On message received
+    client.on('message', (messageEvent) => { onMessageReceived(messageEvent) });
+} catch (error) {
+    logError(error);
+}
 
 // Bot login
 client.login(process.env.DISCORD_JS_BOT_TOKEN)
@@ -48,7 +53,7 @@ function onMessageReceived(messageEvent) {
                     response = quoteCmd()
                     break;
                 case 'version':
-                    response = 'version 201110.1' //TODO find a better way to do this lol
+                    response = 'version 201110.2' //TODO find a better way to do this lol
                     break;
                 default:
                     response = 'Command \"' + CMD_PREFIX + command + '\" not recognized. Use ' + CMD_PREFIX + 'help to see all commands!';
@@ -114,6 +119,25 @@ function quoteCmd(channel) {
     var selectedIndex = Math.round(Math.random()*quotes.length)
     var selectedQuote = quotes[selectedIndex]
     return "*\"" + selectedQuote.text + "\"* " + (selectedQuote.author=="" ? "" : "**-"+selectedQuote.author + "**");
+}
+
+
+
+/********** ADDITIONAL FUNCTIONS **********/
+
+
+
+
+function logError(error) {
+    var channels = client.channels
+
+    var i;
+    for(i = 0; i < channels.length; i++) {
+        if(channels[i].id == ERROR_LOG_CHANNEL_ID) {
+            channels[i].send("**Error:```" + error + "```");
+            break;
+        }
+    }
 }
 
 function getTranslationLink(str) {
