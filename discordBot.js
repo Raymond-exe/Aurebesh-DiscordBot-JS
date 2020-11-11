@@ -1,5 +1,5 @@
 require('dotenv').config();
-const { Client } = require('discord.js')//.config();
+import { Client } from 'discord.js';//.config();
 const client = new Client()
 
 var CMD_PREFIX = '~'
