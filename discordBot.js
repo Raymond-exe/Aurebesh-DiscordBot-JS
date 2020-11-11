@@ -9,12 +9,8 @@ var ERROR_LOG_CHANNEL_ID = '775936990419222539'
 // On ready
 client.on('ready', onBotReady)
 
-try {
-    // On message received
-    client.on('message', (messageEvent) => { onMessageReceived(messageEvent) });
-} catch (error) {
-    logError(error);
-}
+// On message received
+client.on('message', (messageEvent) => { onMessageReceived(messageEvent) });
 
 // Bot login
 client.login(process.env.DISCORD_JS_BOT_TOKEN)
@@ -30,55 +26,60 @@ function onBotReady() {
 }
 
 function onMessageReceived(messageEvent) {
-    message = messageEvent.content
-
-    //if the message wasn't sent by a bot and it started with the right prefix
-    if(!messageEvent.author.bot) {
-
-        //if the message starts with the bot prefix
-        if (message.indexOf(CMD_PREFIX)==0) {
-
-            var command = message.substring(1).trim()
-            command = command.substring(0, command.indexOf(' ')>0 ? command.indexOf(' ') : command.length)
-            var response = "";
-
-            switch(command) {
-                case 'key':
-                    response = {files: ["https://ootinicast.com/aurebesh/Aurebesh.png"]};
-                    break;
-                case 'help':
-                    response = helpCmd()
-                    break;
-                case 'quote':
-                    response = quoteCmd()
-                    break;
-                case 'version':
-                    response = 'version 201110.2' //TODO find a better way to do this lol
-                    break;
-                default:
-                    response = 'Command \"' + CMD_PREFIX + command + '\" not recognized. Use ' + CMD_PREFIX + 'help to see all commands!';
-            }
-
-            messageEvent.channel.send(response);
-
-            return
-        }
-
-        //if the message starts with the translation prefix and is spoiler tagged
-        if (message.indexOf(BOT_PREFIX)==0 && message.lastIndexOf('||')==message.length-2) {
-            //if you can't delete the message, ask for perms
-            if(!messageEvent.deletable) {
-                messageEvent.channel.send('Oops! I need permission to delete messages in this channel in order to work properly. Thank you!')
+    try {
+        message = messageEvent.content
+    
+        //if the message wasn't sent by a bot and it started with the right prefix
+        if(!messageEvent.author.bot) {
+    
+            //if the message starts with the bot prefix
+            if (message.indexOf(CMD_PREFIX)==0) {
+    
+                var command = message.substring(1).trim()
+                command = command.substring(0, command.indexOf(' ')>0 ? command.indexOf(' ') : command.length)
+                var response = "";
+    
+                switch(command) {
+                    case 'key':
+                        response = {files: ["https://ootinicast.com/aurebesh/Aurebesh.png"]};
+                        break;
+                    case 'help':
+                        response = helpCmd()
+                        break;
+                    case 'quote':
+                        response = quoteCmd()
+                        break;
+                    case 'version':
+                        response = 'version 201110.3' //TODO find a better way to do this lol
+                        break;
+                    default:
+                        response = 'Command \"' + CMD_PREFIX + command + '\" not recognized. Use ' + CMD_PREFIX + 'help to see all commands!';
+                }
+    
+                messageEvent.channel.send(response);
+    
                 return
             }
     
-            var textToTranslate = message.substring(BOT_PREFIX.length, message.length-2).trim() + ' -@' + messageEvent.author.username
-            
-            messageEvent.channel.send(getTranslationLink(textToTranslate))
-            messageEvent.delete() //delete the message
-
-            return
+            //if the message starts with the translation prefix and is spoiler tagged
+            if (message.indexOf(BOT_PREFIX)==0 && message.lastIndexOf('||')==message.length-2) {
+                //if you can't delete the message, ask for perms
+                if(!messageEvent.deletable) {
+                    messageEvent.channel.send('Oops! I need permission to delete messages in this channel in order to work properly. Thank you!')
+                    return
+                }
+        
+                var textToTranslate = message.substring(BOT_PREFIX.length, message.length-2).trim() + ' -@' + messageEvent.author.username
+                
+                messageEvent.channel.send(getTranslationLink(textToTranslate))
+                messageEvent.delete() //delete the message
+    
+                return
+            }
         }
+    } catch (error) {
+        messageEvent.channel.send("Uh oh! I ran into an error. Sorry for the inconvenience, why don't we try that again?")
+        logError(error);
     }
 
 }
