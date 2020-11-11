@@ -10,7 +10,7 @@ var ERROR_LOG_CHANNEL_ID = '775936990419222539'
 client.on('ready', onBotReady)
 
 // On message received
-client.on('message', (messageEvent) => { onMessageReceived(messageEvent) });
+client.on('message', (messageEvent) => onMessageReceived(messageEvent));
 
 // Bot login
 client.login(process.env.DISCORD_JS_BOT_TOKEN)
@@ -44,13 +44,13 @@ function onMessageReceived(messageEvent) {
                         response = {files: ["https://ootinicast.com/aurebesh/Aurebesh.png"]};
                         break;
                     case 'help':
-                        response = helpCmd()
+                        response = helpCmd(messageEvent.channel) //TODO remove parameter when done
                         break;
                     case 'quote':
                         response = quoteCmd()
                         break;
                     case 'version':
-                        response = 'version 201110.3' //TODO find a better way to do this lol
+                        response = 'version 201110.4 TEST' //TODO find a better way to do this lol
                         break;
                     default:
                         response = 'Command \"' + CMD_PREFIX + command + '\" not recognized. Use ' + CMD_PREFIX + 'help to see all commands!';
