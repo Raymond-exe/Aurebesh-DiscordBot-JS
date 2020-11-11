@@ -93,7 +93,7 @@ function quoteCmd(channel) {
     var quotes = require("./quotes.json").quotes;
     var selectedIndex = Math.round(Math.random()*quotes.length)
     var selectedQuote = quotes[selectedIndex]
-    channel.send("\"" + selectedQuote.text + "\" " + (selectedQuote.author=="" ? "" : "*-"+selectedQuote.author + "*"))
+    channel.send("*\"" + selectedQuote.text + "\"* " + (selectedQuote.author=="" ? "" : "**-"+selectedQuote.author + "**"))
 }
 
 function getTranslationLink(str) {
