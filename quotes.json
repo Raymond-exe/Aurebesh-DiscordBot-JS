@@ -88,7 +88,13 @@
         { "text": "General Kenobi! You are a bold one.", 
             "author": "General Grievous" },
         { "text": "You fool. I've been trained in your Jedi arts by Count Dooku.", 
-            "author": "General Grievous" }
+            "author": "General Grievous" },
+        { "text": "More.", 
+            "author": "Kylo Ren" },
+        { "text": "That's not how the Force works!", 
+            "author": "Han Solo" },
+        { "text": "Meesa Jar-Jar Binks!", 
+            "author": "Jar-Jar Binks" }
     ]
 }
 
