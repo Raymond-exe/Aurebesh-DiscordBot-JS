@@ -111,7 +111,7 @@ function helpCmd(channel) {
 
     embed += "```" //TODO remove for embed
     commands.forEach(cmd => {
-        embed += BOT_PREFIX + cmd + " - " + helpJson.Commands[cmd] + "\n"; //TODO change for embed
+        embed += CMD_PREFIX + cmd + " - " + helpJson.Commands[cmd] + "\n"; //TODO change for embed
         //embed.addField(cmd, helpJson.Commands[cmd], false)
     });
     embed += "```" //TODO remove for embed
