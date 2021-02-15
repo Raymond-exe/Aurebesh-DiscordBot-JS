@@ -33,7 +33,7 @@ function onMessageReceived(messageEvent) {
         if(!messageEvent.author.bot) {
     
             //if the message starts with the bot prefix
-            if (message.indexOf(CMD_PREFIX)==0) {
+            if (message.indexOf(CMD_PREFIX)==0 && !message.startsWith("~~")) {
     
                 var command = message.substring(1).trim()
                 command = command.substring(0, command.indexOf(' ')>0 ? command.indexOf(' ') : command.length)
@@ -50,8 +50,11 @@ function onMessageReceived(messageEvent) {
                         response = quoteCmd()
                         break;
                     case 'version':
-                        response = 'version 201116.0' //TODO find a better way to do this lol
+                        response = 'version 210215.0' //TODO find a better way to do this lol
                         break;
+                    case 'debug':
+                        logError("Error logging test.");
+                        return;
                     default:
                         response = 'Command \"' + CMD_PREFIX + command + '\" not recognized. Use ' + CMD_PREFIX + 'help to see all commands!';
                 }
@@ -125,7 +128,7 @@ function quoteCmd(channel) {
     var quotes = require("./quotes.json").quotes;
     var selectedIndex = Math.round(Math.random()*quotes.length)
     var selectedQuote = quotes[selectedIndex]
-    return "*\"" + selectedQuote.text + "\"* " + (selectedQuote.author=="" ? "" : "**-"+selectedQuote.author + "**");
+    return "*\"" + selectedQuote.text + "\"*   " + (selectedQuote.author=="" ? "" : "**-"+selectedQuote.author + "**");
 }
 
 

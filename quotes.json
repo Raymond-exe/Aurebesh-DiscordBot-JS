@@ -94,7 +94,9 @@
         { "text": "That's not how the Force works!", 
             "author": "Han Solo" },
         { "text": "Meesa Jar-Jar Binks!", 
-            "author": "Jar-Jar Binks" }
+            "author": "Jar-Jar Binks" },
+        { "text": "I am one with the force, the force is with me.", 
+            "author": "Chirrut Imwe" }
     ]
 }
 
