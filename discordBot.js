@@ -47,14 +47,16 @@ function onMessageReceived(messageEvent) {
                         response = helpCmd() //TODO remove parameter when done
                         break;
                     case 'quote':
+                    case 'quotes':
                         response = quoteCmd()
                         break;
+                    case 'v':
                     case 'version':
-                        response = 'version 210215.0' //TODO find a better way to do this lol
+                        response = 'version 210215.1' //TODO find a better way to do this lol
                         break;
-                    case 'debug':
-                        logError("Error logging test.");
-                        return;
+                    case 'meme':
+                        response = {files: [memeCmd()]};
+                        break;
                     default:
                         response = 'Command \"' + CMD_PREFIX + command + '\" not recognized. Use ' + CMD_PREFIX + 'help to see all commands!';
                 }
@@ -124,17 +126,23 @@ function helpCmd(channel) {
     return embed;
 }
 
-function quoteCmd(channel) {
+function quoteCmd() {
     var quotes = require("./quotes.json").quotes;
     var selectedIndex = Math.round(Math.random()*quotes.length)
     var selectedQuote = quotes[selectedIndex]
     return "*\"" + selectedQuote.text + "\"*   " + (selectedQuote.author=="" ? "" : "**-"+selectedQuote.author + "**");
 }
 
+function memeCmd() {
+    var imgLinks = require("./memes.json").memes
+    var selectedIndex = Math.round(Math.random()*imgLinks.length)
+    var selectedMeme = memes[selectedIndex]
+    return selectedMeme
+}
+
 
 
 /********** ADDITIONAL FUNCTIONS **********/
-
 
 
 
