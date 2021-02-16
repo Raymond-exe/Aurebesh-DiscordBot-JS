@@ -55,13 +55,14 @@ function onMessageReceived(messageEvent) {
                     break;
                 case 'quote': case 'quotes':
                     if(args.length > 0 && Number.isInteger(args[0])) {
+                        messageEvent.channel.send("You've sent a number argument!") //TODO remove after debugging
                         response = quoteCmd(parseInt(args[0]))
                     } else {
                         response = quoteCmd();
                     }
                     break;
                 case 'v': case 'ver': case 'version':
-                    response = 'version 210216.1' //TODO find a better way to do this lol
+                    response = 'version 210216.2' //TODO find a better way to do this lol
                     break;
                 case 'meme': case 'memes':
                     response = {files: [memeCmd()]};
