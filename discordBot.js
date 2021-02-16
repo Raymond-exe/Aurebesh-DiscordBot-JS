@@ -38,8 +38,12 @@ function onMessageReceived(messageEvent) {
         //if the message starts with the bot prefix
         if (message.indexOf(CMD_PREFIX)==0 && !message.startsWith("~~")) {
 
-            var command = message.substring(1).trim()
-            command = command.substring(0, command.indexOf(' ')>0 ? command.indexOf(' ') : command.length)
+            // code below:
+            // seperates message into string[] split by space characters (without cmd prefix)
+            // then it assigns "command" properly and removes the first entry (the command) from the args array
+            var args = message.substring(CMD_PREFIX.length).trim().split(' ')
+            var command = args.shift()
+
             var response = "";
 
             switch(command) {
@@ -50,14 +54,21 @@ function onMessageReceived(messageEvent) {
                     response = helpCmd() //TODO remove parameter when done
                     break;
                 case 'quote': case 'quotes':
-                    response = quoteCmd()
+                    if(args.length > 0 && Number.isInteger(args[0])) {
+                        response = quoteCmd(parseInt(args[0]))
+                    } else {
+                        response = quoteCmd();
+                    }
                     break;
                 case 'v': case 'ver': case 'version':
                     response = 'version 210216.0' //TODO find a better way to do this lol
                     break;
-                case 'meme':
+                case 'meme': case 'memes':
                     response = {files: [memeCmd()]};
                     break;
+                // case 'gif': case 'gifs':
+                //     response = {files: []}; //TODO gif cmd
+                //     break;
                 default:
                     response = 'Command \"' + CMD_PREFIX + command + '\" not recognized. Use ' + CMD_PREFIX + 'help to see all commands!';
             }
@@ -131,9 +142,13 @@ function helpCmd(channel) {
     return embed;
 }
 
-function quoteCmd() {
+function quoteCmd(selectedIndex) {
     var quotes = require("./quotes.json").quotes;
-    var selectedIndex = Math.round(Math.random()*quotes.length)
+
+    if(selectedIndex == undefined || selectedIndex > quotes.length) {
+        selectedIndex = Math.round(Math.random()*quotes.length)
+    }
+
     var selectedQuote = quotes[selectedIndex]
     return "*\"" + selectedQuote.text + "\"*   " + (selectedQuote.author=="" ? "" : "**-"+selectedQuote.author + "**");
 }
