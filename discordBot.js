@@ -56,8 +56,8 @@ function onMessageReceived(messageEvent) {
                 case 'quote': case 'quotes':
                     if(args.length > 0) {
                         messageEvent.channel.send("You've sent an argument!") //TODO remove after debugging
-                        messageEvent.channel.send("Is argument number: " +  Number.isInteger(args[0]))
-                        response = quoteCmd(parseInt(args[0]))
+                        messageEvent.channel.send("Is argument number: " + !isNaN(args[0]))
+                        response = quoteCmd(parseInt(Math.round(args[0])))
                     } else {
                         response = quoteCmd();
                     }
