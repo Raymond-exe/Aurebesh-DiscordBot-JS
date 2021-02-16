@@ -4,6 +4,7 @@
     "Commands": {
         "help": "Summons this help message.",
         "key": "Sends an Aurebesh key for manual translation",
+        "meme": "Sends a random Star Wars meme",
         "quote": "Sends a random Star Wars quote",
         "untranslate": "Untranslates an Aurebesh phrase. **WARNING:** Doesn't currently work lol."
     }

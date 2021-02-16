@@ -136,7 +136,7 @@ function quoteCmd() {
 function memeCmd() {
     var imgLinks = require("./memes.json").memes
     var selectedIndex = Math.round(Math.random()*imgLinks.length)
-    var selectedMeme = memes[selectedIndex]
+    var selectedMeme = imgLinks[selectedIndex]
     return selectedMeme
 }
 
