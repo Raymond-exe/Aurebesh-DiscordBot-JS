@@ -33,7 +33,7 @@
             "author": "Obi-Wan Kenobi" },
         { "text": "Chewie, we’re home.", 
             "author": "Han Solo" },
-        { "text": "I’m one with the Force. The Force is with me.", 
+        { "text": "I am one with the Force. The Force is with me.", 
             "author": "Chirrut Îmwe" },
         { "text": "Jyn, I’ll be there for you. Cassian said I had to.", 
             "author": "K-2SO" },
@@ -94,9 +94,7 @@
         { "text": "That's not how the Force works!", 
             "author": "Han Solo" },
         { "text": "Meesa Jar-Jar Binks!", 
-            "author": "Jar-Jar Binks" },
-        { "text": "I am one with the force, the force is with me.", 
-            "author": "Chirrut Imwe" }
+            "author": "Jar-Jar Binks" }
     ]
 }
 

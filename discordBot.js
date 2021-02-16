@@ -5,6 +5,7 @@ const client = new Client()
 var CMD_PREFIX = '~'
 var BOT_PREFIX = '||ab'
 var ERROR_LOG_CHANNEL_ID = '775936990419222539'
+var AUREBESH_TRANSLATION_KEY = 'https://ootinicast.com/aurebesh/Aurebesh.png'
 
 // On ready
 client.on('ready', onBotReady)
@@ -29,61 +30,62 @@ function onMessageReceived(messageEvent) {
     try {
         message = messageEvent.content
     
-        //if the message wasn't sent by a bot and it started with the right prefix
-        if(!messageEvent.author.bot) {
+        //if the message was sent by a bot, ignore it
+        if(messageEvent.author.bot) {
+            return
+        }
     
-            //if the message starts with the bot prefix
-            if (message.indexOf(CMD_PREFIX)==0 && !message.startsWith("~~")) {
-    
-                var command = message.substring(1).trim()
-                command = command.substring(0, command.indexOf(' ')>0 ? command.indexOf(' ') : command.length)
-                var response = "";
-    
-                switch(command) {
-                    case 'key':
-                        response = {files: ["https://ootinicast.com/aurebesh/Aurebesh.png"]};
-                        break;
-                    case 'help':
-                        response = helpCmd() //TODO remove parameter when done
-                        break;
-                    case 'quote':
-                    case 'quotes':
-                        response = quoteCmd()
-                        break;
-                    case 'v':
-                    case 'version':
-                        response = 'version 210215.1' //TODO find a better way to do this lol
-                        break;
-                    case 'meme':
-                        response = {files: [memeCmd()]};
-                        break;
-                    default:
-                        response = 'Command \"' + CMD_PREFIX + command + '\" not recognized. Use ' + CMD_PREFIX + 'help to see all commands!';
-                }
-    
-                messageEvent.channel.send(response);
-    
+        //if the message starts with the bot prefix
+        if (message.indexOf(CMD_PREFIX)==0 && !message.startsWith("~~")) {
+
+            var command = message.substring(1).trim()
+            command = command.substring(0, command.indexOf(' ')>0 ? command.indexOf(' ') : command.length)
+            var response = "";
+
+            switch(command) {
+                case 'key':
+                    response = {files: [AUREBESH_TRANSLATION_KEY]};
+                    break;
+                case 'help':
+                    response = helpCmd() //TODO remove parameter when done
+                    break;
+                case 'quote': case 'quotes':
+                    response = quoteCmd()
+                    break;
+                case 'v': case 'ver': case 'version':
+                    response = 'version 210216.0' //TODO find a better way to do this lol
+                    break;
+                case 'meme':
+                    response = {files: [memeCmd()]};
+                    break;
+                default:
+                    response = 'Command \"' + CMD_PREFIX + command + '\" not recognized. Use ' + CMD_PREFIX + 'help to see all commands!';
+            }
+
+            messageEvent.channel.send(response);
+
+            return
+        }
+
+        //if the message starts with the translation prefix and is spoiler tagged
+        if (message.indexOf(BOT_PREFIX)==0 && message.lastIndexOf('||')==message.length-2) {
+            //if you can't delete the message, ask for perms
+            if(!messageEvent.deletable) {
+                messageEvent.channel.send('Oops! I need permission to delete messages in this channel in order to work properly. Thank you!')
                 return
             }
     
-            //if the message starts with the translation prefix and is spoiler tagged
-            if (message.indexOf(BOT_PREFIX)==0 && message.lastIndexOf('||')==message.length-2) {
-                //if you can't delete the message, ask for perms
-                if(!messageEvent.deletable) {
-                    messageEvent.channel.send('Oops! I need permission to delete messages in this channel in order to work properly. Thank you!')
-                    return
-                }
+            var textToTranslate = message.substring(BOT_PREFIX.length, message.length-2).trim() + ' -@' + messageEvent.author.username
+            
+            messageEvent.channel.send(getTranslationLink(textToTranslate))
+            messageEvent.delete() //delete the message
+
+            return
+        } 
         
-                var textToTranslate = message.substring(BOT_PREFIX.length, message.length-2).trim() + ' -@' + messageEvent.author.username
-                
-                messageEvent.channel.send(getTranslationLink(textToTranslate))
-                messageEvent.delete() //delete the message
-    
-                return
-            } else if(message.toLowerCase().indexOf("hello there") > 0) {
-                //if the message contains "hello there", respond with "general kenobi"
-                messageEvent.channel.send("https://tenor.com/view/hello-there-general-kenobi-star-wars-grevious-gif-17774326")
-            }
+        //if the message contains "hello there", respond with "general kenobi"
+        if (message.toLowerCase().indexOf("hello there") >= 0) {
+            messageEvent.channel.send("https://tenor.com/view/hello-there-general-kenobi-star-wars-grevious-gif-17774326")
         }
     } catch (error) {
         messageEvent.channel.send("Uh oh! I ran into an error. Sorry for the inconvenience, why don't we try that again?")
