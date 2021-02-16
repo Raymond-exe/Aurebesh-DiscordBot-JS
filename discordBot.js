@@ -51,12 +51,10 @@ function onMessageReceived(messageEvent) {
                     response = {files: [AUREBESH_TRANSLATION_KEY]};
                     break;
                 case 'help':
-                    response = helpCmd() //TODO remove parameter when done
+                    response = helpCmd() //TODO remove parameter when done debugging
                     break;
                 case 'quote': case 'quotes':
-                    if(args.length > 0) {
-                        messageEvent.channel.send("You've sent an argument!") //TODO remove after debugging
-                        messageEvent.channel.send("Is argument number: " + !isNaN(args[0]))
+                    if(args.length > 0 && !isNaN(args[0])) {
                         response = quoteCmd(parseInt(Math.round(args[0])))
                     } else {
                         response = quoteCmd();
