@@ -54,15 +54,16 @@ function onMessageReceived(messageEvent) {
                     response = helpCmd() //TODO remove parameter when done
                     break;
                 case 'quote': case 'quotes':
-                    if(args.length > 0 && Number.isInteger(args[0])) {
-                        messageEvent.channel.send("You've sent a number argument!") //TODO remove after debugging
+                    if(args.length > 0) {
+                        messageEvent.channel.send("You've sent an argument!") //TODO remove after debugging
+                        messageEvent.channel.send("Is argument number: " +  Number.isInteger(args[0]))
                         response = quoteCmd(parseInt(args[0]))
                     } else {
                         response = quoteCmd();
                     }
                     break;
                 case 'v': case 'ver': case 'version':
-                    response = 'version 210216.2' //TODO find a better way to do this lol
+                    response = 'version 210216.3' //TODO find a better way to do this lol
                     break;
                 case 'meme': case 'memes':
                     response = {files: [memeCmd()]};
