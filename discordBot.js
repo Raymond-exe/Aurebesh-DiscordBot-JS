@@ -61,7 +61,7 @@ function onMessageReceived(messageEvent) {
                     }
                     break;
                 case 'v': case 'ver': case 'version':
-                    response = 'version 210216.0' //TODO find a better way to do this lol
+                    response = 'version 210216.1' //TODO find a better way to do this lol
                     break;
                 case 'meme': case 'memes':
                     response = {files: [memeCmd()]};
