@@ -80,6 +80,9 @@ function onMessageReceived(messageEvent) {
                 messageEvent.delete() //delete the message
     
                 return
+            } else if(message.toLowerCase().indexOf("hello there") > 0) {
+                //if the message contains "hello there", respond with "general kenobi"
+                messageEvent.channel.send("https://tenor.com/view/hello-there-general-kenobi-star-wars-grevious-gif-17774326")
             }
         }
     } catch (error) {
@@ -159,7 +162,7 @@ function logError(error) {
 }
 
 function getTranslationLink(str) {
-    var output = "https://everythingfonts.com/testdrive/hKenvRq3__Z8DBqPgUDqjgeF?filetype=png&text=";
+    var output = "https://everythingfonts.com/testdrive/hKenvRq3__Z8DBqPgUDqjgeF?text=";
 
 
     // Loop through the provided string
